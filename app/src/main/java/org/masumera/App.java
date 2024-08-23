@@ -3,23 +3,43 @@
  */
 package org.masumera;
 
+import java.io.IOException;
+
+
 import org.masumera.body.Album;
 import org.masumera.body.Song;
+import org.masumera.service.CallRequest;
 
 public class App {
     public static void main(String[] args) {
+    //
+    // Song song = new Song("fireworks", 2, 5);
+    // // song.setName("fire");
+    // Song hero = new Song("mirai", 3, 8);
+    //
+    // System.out.println(song.getName());
+    // System.out.println(song.getDuration());
+    //
+    // Album album = new Album(hero, "ella");
+    //
+    // System.out.println(album.getSong().getName());
+    // System.out.println(album.getName());
+    // 
+    
+    CallRequest query = new CallRequest();
 
-    Song song = new Song("fireworks", 2, 5);
-    // song.setName("fire");
-    Song hero = new Song("mirai", 3, 8);
+    try {
+    
+    String result = query.queryApi("Viva la vida", "coldplay");
+    System.out.println(result);
 
-    System.out.println(song.getName());
-    System.out.println(song.getDuration());
+    
+    
+    } catch (InterruptedException | IOException e){
+      System.out.println("error");
+    }
 
-    Album album = new Album(hero, "ella");
 
-    System.out.println(album.getSong().getName());
-    System.out.println(album.getName());
     
 
     
