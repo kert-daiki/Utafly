@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.masumera.body.Album;
 import org.masumera.body.Song;
 import org.masumera.service.CallRequest;
+import org.masumera.service.SaveFile;
 
 public class App {
     public static void main(String[] args) {
@@ -33,11 +34,15 @@ public class App {
     String result = query.queryApi("Viva la vida", "coldplay");
     System.out.println(result);
 
-    
+    SaveFile saveFile = new SaveFile();
+    saveFile.sampleFile(result);
     
     } catch (InterruptedException | IOException e){
       System.out.println("error");
     }
+    
+
+    
 
 
     
