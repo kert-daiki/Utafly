@@ -4,12 +4,17 @@
 package org.masumera;
 
 import java.io.IOException;
-
+import java.util.Scanner;
 
 import org.masumera.body.Album;
 import org.masumera.body.Song;
 import org.masumera.service.CallRequest;
+import org.masumera.service.QueryApiClient;
 import org.masumera.service.SaveFile;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 
 public class App {
     public static void main(String[] args) {
@@ -27,8 +32,9 @@ public class App {
     // System.out.println(album.getName());
     // 
     
-    CallRequest query = new CallRequest();
-
+    // CallRequest query = new CallRequest();
+/*
+// new try to implement another api service method
     try {
     
     String result = query.queryApi("Viva la vida", "coldplay");
@@ -40,13 +46,29 @@ public class App {
     } catch (InterruptedException | IOException e){
       System.out.println("error");
     }
-    
+    */
+      QueryApiClient queryApiClient = new QueryApiClient();
 
-    
+      Scanner scanner = new Scanner(System.in);
+      System.out.println("Escribe el nombre de la cancion");
 
+      String querySong;
+      if (scanner.hasNextLine()) {
+        querySong = scanner.nextLine();
+      }else {
+        System.out.println("No se encontro linea, se usara la cancion viva la vida");
+        querySong = "Viva la vida";
+      }
+      try {
+        String songTrack = queryApiClient.searchTrackId(querySong);
+        JsonNode trackDetail = queryApiClient.getTrack(songTrack);
+  
+        System.out.println(trackDetail.toPrettyString());  
 
-    
+      } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+      }
 
-    
+      scanner.close();
     }
 }
