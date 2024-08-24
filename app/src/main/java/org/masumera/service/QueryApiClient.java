@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class QueryApiClient {
 
     private static final String APIKEY_STRING = "&apikey=a259a1e7037b418bfaa0545e6f4f9864";
-    private final String SEARCH_URL = "https://api.musixmatch.com/ws/1.1/track.search?q_track=%s"+APIKEY_STRING;
+    private final String SEARCH_URL = "https://api.musixmatch.com/ws/1.1/track.search?q_track=%s"+"&page_size=3&page=1"+APIKEY_STRING;
     private final String TRACK_DETAIL_URL = "https://api.musixmatch.com/ws/1.1/track.get?commontrack_id=%s"+APIKEY_STRING;
 
     private final HttpClient client;
@@ -56,18 +56,45 @@ public class QueryApiClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            JsonNode messageJsonField = objectMapper.readTree(response.body());
-            // System.out.println(messageJsonField.get("message"));
-            JsonNode jsonResponse = objectMapper.readTree(response.body()).get("message");
+            // JsonNode messageJsonField = objectMapper.readTree(response.body());
+            // // System.out.println(messageJsonField.get("message"));
+            JsonNode jsonResponse = objectMapper.readTree(response.body());
             // System.out.println("\njsonResponse: " + jsonResponse);
         
-            exploreJson(jsonResponse); // Función para explorar el JSON
+            // exploreJson(jsonResponse); // Función para explorar el JSON
             // JsonNode bodyNode = messageJsonField.get("body");
             // System.out.println("Body Node: " + bodyNode);
 
             // if (bodyNode != null) {
-            JsonNode trackListNode = jsonResponse.get("body");
-            System.out.println("tracklist Node: " + trackListNode);
+            
+            JsonNode messageNode = jsonResponse.get("message");
+            // System.out.println(messageNode);
+
+            // if (messageNode != null && messageNode.has("body")) {
+            //     // Acceder al campo 'body' dentro de 'message'
+            //     JsonNode bodyNode = messageNode.get("body");
+            //     System.out.println("Body Node: " + bodyNode);
+
+            //     // Obtener el valor del campo 'body' como texto
+            //     String body = bodyNode.toString();
+            //     System.out.println("Contenido del cuerpo: " + body);
+
+            //     // Acceder al campo 'track_list' dentro de 'body'
+            //     JsonNode trackListNode = bodyNode.get("track_list");
+            //     System.out.println("Tracklist Node: " + trackListNode);
+            // } else {
+            //     System.out.println("El campo 'message' o 'body' no existe en el JSON.");
+            // }
+                        
+            // if (jsonResponse.has("body")) {
+            // String body = jsonResponse.get("body").asText();
+            // System.out.println(body);
+            // }
+            JsonNode bodyNode = messageNode.get("body");
+
+            JsonNode trackListNode = bodyNode.get("track_list");
+            // System.out.println("tracklist Node: " + trackListNode);
+    
                 if (trackListNode != null && trackListNode.isArray() && trackListNode.size() > 0) {
                     JsonNode firstTrack = trackListNode.get(0).get("track");
                     if (firstTrack != null) {
@@ -91,7 +118,10 @@ public class QueryApiClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            return objectMapper.readTree(response.body());
+            JsonNode jsonResponseTrack = objectMapper.readTree(response.body());
+            JsonNode artistNode = jsonResponseTrack.get("message").get("body").get("track").get("artist_name");
+
+            return artistNode;
         }else {
             throw new RuntimeException("Failed to get track information.");
         }

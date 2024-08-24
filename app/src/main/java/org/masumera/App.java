@@ -57,7 +57,7 @@ public class App {
         querySong = scanner.nextLine();
       }else {
         System.out.println("No se encontro linea, se usara la cancion viva la vida");
-        querySong = "Viva la vida";
+        querySong = "wannabe";
       }
       try {
         String songTrack = queryApiClient.searchTrackId(querySong);
