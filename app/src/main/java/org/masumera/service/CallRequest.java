@@ -1,8 +1,15 @@
 package org.masumera.service;
 
 import java.io.IOException;
+// import java.net.Authenticator;
+// import java.net.InetSocketAddress;
+// import java.net.ProxySelector;
 import java.net.URI;
+// import java.net.Authenticator;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
@@ -25,18 +32,21 @@ public class CallRequest {
   final String parameterArtist = "q_artist=";
   final String completeUrl = baseURL+apiMethod+parameterTrack+parameter1.replace(" ", "+")+"&"+parameterArtist+parameter2.replace(" ", "+")+apiKey;
 
-  HttpClient client = HttpClient.newHttpClient();
-
+  //HttpClient client = HttpClient.newHttpClient();
+  HttpClient client = HttpClient.newBuilder()
+    .version(Version.HTTP_2)
+    .followRedirects(Redirect.NORMAL)
+    // .authenticator(Authenticator.getDefault())
+    .build();
+  
   HttpRequest request = HttpRequest.newBuilder()
       .uri(URI.create(completeUrl))
       .headers("accep", "applicaton/json")
       .build();
 
     HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-    String json = response.body();
-    return json;
-   
+    // String json = response.body();
+    return response.body();
   }
 }
 
