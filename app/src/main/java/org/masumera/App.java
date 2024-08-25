@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import org.masumera.body.Album;
+import org.masumera.body.DataSong;
 import org.masumera.body.Song;
 import org.masumera.service.CallRequest;
 import org.masumera.service.QueryApiClient;
 import org.masumera.service.SaveFile;
+import org.masumera.service.TransformData;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -64,12 +67,28 @@ public class App {
         String songTrack = queryApiClient.searchTrackId(querySong);
         JsonNode trackDetail = queryApiClient.getTrack(songTrack);
   
-        System.out.println(trackDetail.toPrettyString());  
+        // System.out.println(trackDetail.toPrettyString());  
 
       } catch (Exception e) {
         System.out.println("Error: " + e.getMessage());
       }
 
+       TransformData transformData = new TransformData(queryApiClient);
+    try {
+      String songId = queryApiClient.searchTrackId(querySong);
+      String jsonResult = transformData.getTrackAsString(songId);
+      System.out.println(jsonResult);
+      DataSong dataSong = transformData.getData(jsonResult, DataSong.class);
+      Song song = new Song(dataSong);
+      System.out.println(song.getName());
+      System.out.println(song.getArtist());
+      System.out.println(song.getAlbumName().getName());
+      
+      
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+    
       scanner.close();
     }
 }

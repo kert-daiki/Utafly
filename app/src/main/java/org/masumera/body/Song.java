@@ -6,43 +6,49 @@ package org.masumera.body;
 public class Song {
 
   private String name;
-  private int duration;
-  private int rate;
+  private String artist;
+  private Album albumName;
 
   // public Song(String name, int duration, int rate) {
-  //   this.name = name;
-  //   this.duration = duration;
-  //   this.rate = rate;
+  // this.name = name;
+  // this.duration = duration;
+  // this.rate = rate;
   // }
+
+  public Song(String name, String artist, Album albumName) {
+    this.name = name;
+    this.artist = artist;
+    this.albumName = albumName;
+  }
 
   public String getName() {
     return name;
-  }
-
-  public Song(String name, int duration, int rate) {
-    this.name = name;
-    this.duration = duration;
-    this.rate = rate;
-  }
-
-  public int getDuration() {
-    return duration;
-  }
-
-  public int getRate() {
-    return rate;
   }
 
   public void setName(String name) {
     this.name = name;
   }
 
-  public void setRate(int rate) {
-    this.rate = rate;
+  public String getArtist() {
+    return artist;
   }
 
-  public void setDuration(int duration){
-    this.duration = duration;
+  public void setArtist(String artist) {
+    this.artist = artist;
+  }
+
+  public Album getAlbumName() {
+    return albumName;
+  }
+
+  public void setAlbumName(Album albumName) {
+    this.albumName = albumName;
+  }
+
+  public Song(DataSong dataSong) {
+    this.name = dataSong.name();
+    this.artist = dataSong.artist();
+    this.albumName = dataSong.albumName();
   }
 
 }

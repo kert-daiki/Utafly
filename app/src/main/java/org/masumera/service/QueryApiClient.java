@@ -24,19 +24,19 @@ public class QueryApiClient {
     }
 
 
-    // Método para explorar el JSON
-    private void exploreJson(JsonNode node) {
-        if (node == null) return;
-        System.out.println("Exploring Node: " + node.toPrettyString());
-        node.fieldNames().forEachRemaining(fieldName -> {
-            JsonNode childNode = node.get(fieldName);
-            System.out.println("Field Name: " + fieldName + " | Value: " + childNode);
-            if (childNode.isObject() || childNode.isArray()) {
-                exploreJson(childNode);
-            }
-        });
-    }
-
+    // // Método para explorar el JSON
+    // private void exploreJson(JsonNode node) {
+    //     if (node == null) return;
+    //     System.out.println("Exploring Node: " + node.toPrettyString());
+    //     node.fieldNames().forEachRemaining(fieldName -> {
+    //         JsonNode childNode = node.get(fieldName);
+    //         System.out.println("Field Name: " + fieldName + " | Value: " + childNode);
+    //         if (childNode.isObject() || childNode.isArray()) {
+    //             exploreJson(childNode);
+    //         }
+    //     });
+    // }
+    //
 
 
 
@@ -98,7 +98,7 @@ public class QueryApiClient {
                 if (trackListNode != null && trackListNode.isArray() && trackListNode.size() > 0) {
                     JsonNode firstTrack = trackListNode.get(0).get("track");
                     if (firstTrack != null) {
-                        return firstTrack.get("commontrack_id").asText();
+                        return firstTrack.get("track_id").asText();
                     }
                 }
             // }
@@ -119,9 +119,10 @@ public class QueryApiClient {
 
         if (response.statusCode() == 200) {
             JsonNode jsonResponseTrack = objectMapper.readTree(response.body());
-            JsonNode artistNode = jsonResponseTrack.get("message").get("body").get("track").get("artist_name");
+            // JsonNode artistNode = jsonResponseTrack.get("message").get("body").get("track").get("artist_name");
+            JsonNode jsonReturn = jsonResponseTrack.get("message").get("body").get("track");
 
-            return artistNode;
+            return jsonReturn;
         }else {
             throw new RuntimeException("Failed to get track information.");
         }
