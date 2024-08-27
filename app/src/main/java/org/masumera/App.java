@@ -77,12 +77,14 @@ public class App {
     try {
       String songId = queryApiClient.searchTrackId(querySong);
       String jsonResult = transformData.getTrackAsString(songId);
-      System.out.println(jsonResult);
+      // System.out.println(jsonResult);
       DataSong dataSong = transformData.getData(jsonResult, DataSong.class);
       Song song = new Song(dataSong);
       System.out.println(song.getName());
       System.out.println(song.getArtist());
       System.out.println(song.getAlbumName().getName());
+
+      System.out.println(song.toString());
       
       
     } catch (Exception e) {

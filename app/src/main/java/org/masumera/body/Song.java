@@ -51,4 +51,11 @@ public class Song {
     this.albumName = dataSong.albumName();
   }
 
+  @Override
+  public String toString() {
+    return "name: " + name +
+           ", artist: " + artist + '\'' + 
+           ", albumName: " + albumName + '\'' ;
+  }
+
 }
