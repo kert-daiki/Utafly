@@ -22,21 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SuppressWarnings("unused")
 public class App {
     public static void main(String[] args) {
-    //
-    // Song song = new Song("fireworks", 2, 5);
-    // // song.setName("fire");
-    // Song hero = new Song("mirai", 3, 8);
-    //
-    // System.out.println(song.getName());
-    // System.out.println(song.getDuration());
-    //
-    // Album album = new Album(hero, "ella");
-    //
-    // System.out.println(album.getSong().getName());
-    // System.out.println(album.getName());
-    // 
-    
-    // CallRequest query = new CallRequest();
 /*
 // new try to implement another api service method
     try {
