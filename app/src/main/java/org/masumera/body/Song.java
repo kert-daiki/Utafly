@@ -8,6 +8,7 @@ public class Song {
   private String name;
   private String artist;
   private Album albumName;
+  private String id;
 
   // public Song(String name, int duration, int rate) {
   // this.name = name;
@@ -15,7 +16,20 @@ public class Song {
   // this.rate = rate;
   // }
 
-  public Song(String name, String artist, Album albumName) {
+  public Song(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public Song(String id, String name, String artist, Album albumName) {
+    this.id = id;
     this.name = name;
     this.artist = artist;
     this.albumName = albumName;
@@ -46,6 +60,7 @@ public class Song {
   }
 
   public Song(DataSong dataSong) {
+    this.id = dataSong.id();
     this.name = dataSong.name();
     this.artist = dataSong.artist();
     this.albumName = dataSong.albumName();

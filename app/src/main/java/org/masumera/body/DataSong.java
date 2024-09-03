@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DataSong(
+      @JsonAlias("commontrack_id") String id,
       @JsonAlias("track_name") String name,
       @JsonAlias("artist_name") String artist,
       @JsonAlias("album_name") Album albumName

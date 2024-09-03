@@ -4,12 +4,12 @@
 package org.masumera;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import org.masumera.body.Album;
 import org.masumera.body.DataSong;
 import org.masumera.body.Song;
-import org.masumera.service.CallRequest;
 import org.masumera.service.QueryApiClient;
 import org.masumera.service.SaveFile;
 import org.masumera.service.TransformData;
@@ -49,23 +49,28 @@ public class App {
         querySong = "wannabe";
       }
       try {
-        String songTrack = queryApiClient.searchTrackId(querySong);
+        List<Song> songLists = queryApiClient.searchTrackId(querySong);
+        String songTrack = queryApiClient.searchQuerySongId(songLists);
+      
+        // String songTrack = queryApiClient.searchTrackId(querySong);
         JsonNode trackDetail = queryApiClient.getTrack(songTrack);
   
         // System.out.println(trackDetail.toPrettyString());  
-
-      } catch (Exception e) {
-        System.out.println("Error: " + e.getMessage());
-      }
+      //
+      // } catch (Exception e) {
+      //   System.out.println("Error: " + e.getMessage());
+      // }
 
        TransformData transformData = new TransformData(queryApiClient);
-    try {
-      String songId = queryApiClient.searchTrackId(querySong);
-      String jsonResult = transformData.getTrackAsString(songId);
+    // try {
+      // String songId = queryApiClient.searchTrackId(songTrack);
+      // System.out.println(songTrack);
+      String jsonResult = transformData.getTrackAsString(songTrack);
       // System.out.println(jsonResult);
       DataSong dataSong = transformData.getData(jsonResult, DataSong.class);
       Song song = new Song(dataSong);
       System.out.println(song.getName());
+      System.out.println(song.getId());
       System.out.println(song.getArtist());
       System.out.println(song.getAlbumName().getName());
 
