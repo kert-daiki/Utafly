@@ -16,6 +16,11 @@ repositories {
 }
 
 dependencies {
+    // Jackson & HttpClient
+    implementation 'com.fasterxml.jackson.core:jackson-databind:+'
+    implementation 'org.apache.httpcomponents:httpclient:+'
+
+
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
 
