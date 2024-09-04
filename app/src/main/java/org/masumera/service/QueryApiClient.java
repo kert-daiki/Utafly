@@ -1,7 +1,9 @@
 package org.masumera.service;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,17 +13,33 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+// import java.util.Properties;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Iterators;
+// import com.google.common.collect.Iterators;
 
 import org.masumera.body.Album;
 import org.masumera.body.Song;
 
 public class QueryApiClient {
 
-  private static final String APIKEY_STRING = "&apikey=a259a1e7037b418bfaa0545e6f4f9864";
+
+  ApiManager apiManager = new ApiManager();
+  
+  private final String apikey = apiManager.getApiKey();
+  
+  // System.out.println("hello");
+  
+  
+  
+  // System.out.println("here"));
+  // System.out.println(apikey);app.java
+  // System.out.println("here");
+  
+
+  private final String APIKEY_STRING = "&apikey=" + apikey;
+  
   private final String SEARCH_URL = "https://api.musixmatch.com/ws/1.1/track.search?q_track=%s" + "&page_size=3&page=1"
       + APIKEY_STRING;
   private final String TRACK_DETAIL_URL = "https://api.musixmatch.com/ws/1.1/track.get?commontrack_id=%s"
@@ -38,7 +56,6 @@ public class QueryApiClient {
   // // Método para explorar el JSON
   // private void exploreJson(JsonNode node) {
   // if (node == null) return;
-  // System.out.println("Exploring Node: " + node.toPrettyString());
   // node.fieldNames().forEachRemaining(fieldName -> {
   // JsonNode childNode = node.get(fieldName);
   // System.out.println("Field Name: " + fieldName + " | Value: " + childNode);
