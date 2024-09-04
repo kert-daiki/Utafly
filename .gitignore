@@ -5,8 +5,12 @@
 
 build
 
+# IDE folders and files
 .idea
 .project
 .vscode
+
+#external files
+config.properties
 
 
