@@ -118,7 +118,7 @@ public class QueryApiClient {
        */
       List<Song> trackList = new ArrayList<>();
       JsonNode trackListNode = bodyNode.get("track_list");
-      System.out.println(trackListNode);
+      // System.out.println(trackListNode);
       Iterator<JsonNode> elements = trackListNode.elements();
 
       while (elements.hasNext()) {
