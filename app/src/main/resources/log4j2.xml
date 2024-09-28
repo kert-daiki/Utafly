@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://logging.apache.org/log4j/2.0/config"
+               xsi:schemaLocation="http://logging.apache.org/log4j/2.0/config https://raw.githubusercontent.com/apache/logging-log4j2/main/log4j-core/src/main/resources/Log4j-config.xsd">
+
+    <Properties>
+        <Property name="Layout">%d [%t] %-5level %logger</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="CONSOLE">
+            <PatternLayout>
+                <Pattern>"${Layout} - %m%n"</Pattern>
+            </PatternLayout>
+        </Console>
+        <File name="LogFile" fileName="app.log">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="test" level="INFO">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>

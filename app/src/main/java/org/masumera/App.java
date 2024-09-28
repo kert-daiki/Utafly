@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.masumera.body.Album;
 import org.masumera.body.DataSong;
 import org.masumera.body.Song;
@@ -19,10 +21,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
+
 @SuppressWarnings("unused")
 public class App {
+
+  private static final Logger logger = LogManager.getLogger("test");
     public static void main(String[] args) {
-    
+
+      logger.info("INFO message");
+      logger.error("ERROR message");
 /*
 // new try to implement another api service method
     try {

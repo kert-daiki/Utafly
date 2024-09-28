@@ -13,6 +13,9 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 // import java.util.Properties;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,6 +27,7 @@ import org.masumera.body.Song;
 
 public class QueryApiClient {
 
+  private static final Logger logger = LogManager.getLogger(QueryApiClient.class);
 
   ApiManager apiManager = new ApiManager();
   
@@ -76,6 +80,7 @@ public class QueryApiClient {
    * @throws Exception
    */
   public List<Song> searchTrackId(String query) throws IOException, InterruptedException {
+    logger.info("Searching track id " + query);
     String url = String.format(SEARCH_URL, query.replace(" ", "+"));
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url))
@@ -190,6 +195,8 @@ public class QueryApiClient {
 
       return jsonReturn;
     } else {
+      logger.warn("warn Log Message");
+      logger.info("INFO log Message");
       throw new RuntimeException("Failed to get track information.");
     }
   }

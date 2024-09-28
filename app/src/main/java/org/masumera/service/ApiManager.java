@@ -24,6 +24,7 @@ public class ApiManager {
     }
   }
 
+
   public String getApiKey() {
     return properties.getProperty("api.key");
   }
