@@ -28,8 +28,8 @@ public class App {
   private static final Logger logger = LogManager.getLogger("test");
     public static void main(String[] args) {
 
-      logger.info("INFO message");
-      logger.error("ERROR message");
+
+  
 /*
 // new try to implement another api service method
     try {
@@ -90,5 +90,10 @@ public class App {
     }
     
       scanner.close();
+    }
+    public String getGreeting() {
+      String greeting = "Hello";
+      System.out.println(greeting);
+      return greeting;
     }
 }
